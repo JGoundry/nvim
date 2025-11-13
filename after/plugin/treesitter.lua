@@ -13,6 +13,7 @@ require'nvim-treesitter.configs'.setup {
                        "java",
                        "javascript",
                        "typescript",
+                       "json",
                        "lua",
                        "vim",
                        "vimdoc",

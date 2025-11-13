@@ -29,7 +29,7 @@ lsp_zero.extend_lspconfig({
 ---
 require('mason').setup({})
 require('mason-lspconfig').setup({
-    ensure_installed = { 'lua_ls', 'rust_analyzer', 'clangd', 'cmake', 'gopls'},
+    ensure_installed = { 'lua_ls', 'rust_analyzer', 'clangd', 'cmake', 'gopls', 'vtsls', 'html', 'cssls', 'docker_language_server', 'jsonls'},
     handlers = {
         function(server_name)
             require('lspconfig')[server_name].setup({})
