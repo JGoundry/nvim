@@ -50,7 +50,7 @@ local default_lsp_setup = function(server)
         capabilities = lsp_capabilities,
     })
 
-    -- mason-lspconfig does this automatically anyways
+    -- just to be safe, mason-lspconfig does this automatically anyways
     vim.lsp.enable({ server })
 end
 
@@ -95,55 +95,6 @@ cmp.setup({
 -- Autopairs setup
 ---
 local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-cmp.event:on(
-  'confirm_done',
-  cmp_autopairs.on_confirm_done()
-)
-
----
--- Mason setup
----
-require('mason').setup({})
-require('mason-lspconfig').setup({
-    ensure_installed = { 'lua_ls', 'rust_analyzer', 'clangd', 'cmake', 'gopls', 'vtsls', 'html', 'cssls', 'docker_language_server', 'jsonls'},
-    handlers = {
-        function(server_name)
-            require('lspconfig')[server_name].setup({})
-        end,
-    },
-})
-
----
--- Autocompletion setup
----
-local cmp = require('cmp')
-
-cmp.setup({
-    snippet = {
-        -- REQUIRED - you must specify a snippet engine
-        expand = function(args)
-            vim.snippet.expand(args.body) -- For native neovim snippets (Neovim v0.10+)
-        end,
-    },
-    mapping = cmp.mapping.preset.insert({
-        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-e>'] = cmp.mapping.abort(),
-        ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-    }),
-    sources = cmp.config.sources({
-        { name = 'nvim_lsp' },
-    }, {
-        { name = 'buffer' },
-    })
-})
-
----
--- Autopairs setup
----
-local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-
 cmp.event:on(
   'confirm_done',
   cmp_autopairs.on_confirm_done()
