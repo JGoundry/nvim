@@ -24,10 +24,34 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 
+vim.lsp.config('lua_ls', {
+    settings = {
+        Lua = {
+            -- Supress undefined global variable warnings
+            diagnostics = {
+                globals = { 'vim' },
+            },
+            -- Proper path resolution and Neovim API awareness
+            workspace = {
+                library = vim.api.nvim_get_runtime_file("", true),
+                checkThirdParty = false,
+            },
+            -- Default neovim lua runtime
+            runtime = {
+                version = 'LuaJIT',
+            },
+        },
+    },
+})
+
+
 local default_lsp_setup = function(server)
-    require('lspconfig')[server].setup({
+    vim.lsp.config(server, {
         capabilities = lsp_capabilities,
     })
+
+    -- mason-lspconfig does this automatically anyways
+    vim.lsp.enable({ server })
 end
 
 ---
