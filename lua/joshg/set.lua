@@ -31,7 +31,6 @@ vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
 
-
 vim.diagnostic.config({
     signs = true,
     severity_sort = true,

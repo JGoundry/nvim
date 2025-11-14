@@ -40,9 +40,6 @@ require("lazy").setup({
             "folke/tokyonight.nvim", name = "tokyonight"
         },
         {
-            "nyoom-engineering/oxocarbon.nvim", name = "oxocarbon"
-        },
-        {
             "mbbill/undotree"
         },
         {
@@ -73,15 +70,9 @@ require("lazy").setup({
             "tpope/vim-surround"
         },
         {
-            "justinmk/vim-sneak"
-        },
-        {
             "windwp/nvim-autopairs", event = "InsertEnter", config = true
         },
-        {
-            "theprimeagen/vim-be-good"
-        }
     },
-    install = { colorscheme = { "rose-pine" } },
+    install = { colorscheme = { "tokyonight-night" } },
     checker = { enabled = true },
 })
