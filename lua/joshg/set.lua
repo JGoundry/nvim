@@ -34,5 +34,10 @@ vim.opt.colorcolumn = "80"
 vim.diagnostic.config({
     signs = true,
     severity_sort = true,
-    virtual_text = true,
+    virtual_text = true, -- This shows the short version on the line
+    float = {
+        border = "rounded",
+        wrap = true,      -- This fixes the "off-screen" issue
+        max_width = 80,   -- Keeps it readable on large monitors
+    },
 })

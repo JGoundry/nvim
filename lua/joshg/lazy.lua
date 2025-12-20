@@ -70,6 +70,9 @@ require("lazy").setup({
             "tpope/vim-surround"
         },
         {
+            "justinmk/vim-sneak"
+        },
+        {
             "windwp/nvim-autopairs", event = "InsertEnter", config = true
         },
     },
