@@ -49,11 +49,34 @@ vim.lsp.config("lua_ls", {
 })
 
 ---
--- Mason: LSP installer + auto-setup
+-- Mason: auto-install LSP servers, formatters, and linters
 -- NOTE: Neovim 0.11+ with blink.cmp auto-merges LSP capabilities.
 -- No need to pass capabilities manually.
+--
+-- System requirements (not installable via Mason):
+--   dnf install ripgrep fd-find ShellCheck  (ripgrep + fd for telescope, shellcheck for bash linting)
+--   Node.js (for prettierd, vtsls, cssls, html, jsonls)
+--   Rust toolchain (rustup) for rustfmt and rust-analyzer
+--   Go toolchain for gofumpt, goimports, gopls
 ---
-require("mason").setup({})
+require("mason").setup({
+    ensure_installed = {
+        -- Formatters (for conform.nvim)
+        "stylua",
+        "gofumpt",
+        "goimports",
+        "prettierd",
+        "clang_format",
+        "ruff", -- also used by nvim-lint for Python
+        "rustfmt",
+
+        -- Linters (for nvim-lint)
+        "selene",
+        "hadolint",
+        "markdownlint",
+        "yamllint",
+    },
+})
 require("mason-lspconfig").setup({
     ensure_installed = {
         "lua_ls",

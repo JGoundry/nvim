@@ -252,14 +252,7 @@ Also shows **signs** in the gutter for changed lines (like gitsigns).
 
 | Plugin | What it does |
 |---|---|
-| **flash.nvim** | Label-based jumping integrated with `/`, `f`, `t`, LSP references, and treesitter. One plugin replaces sneak + enhances all built-in motions. |
-
-To try flash.nvim instead of vim-sneak, swap the lazy spec in `lazy.lua`:
-
-```lua
--- Replace vim-sneak:
-{ "folke/flash.nvim", event = "VeryLazy", opts = {} }
-```
+| **flash.nvim** | ✅ **Now installed** — label-based jumping replacing vim-sneak. |
 
 ### Other notable plugins
 
@@ -271,3 +264,23 @@ To try flash.nvim instead of vim-sneak, swap the lazy spec in `lazy.lua`:
 | **fzf-lua** | Fuzzy finder | Faster than telescope (native fzf), similar API |
 | **harpoon** | File bookmarks | Quick-jump between 2-4 frequent project files |
 | **oil.nvim** | File explorer | Alternative to mini.files — single-window, text-editing-based, works over SSH |
+
+---
+
+## System Requirements
+
+For a fully working OOTB experience on a new machine, install these before opening Neovim:
+
+**Fedora:**
+```
+dnf install ripgrep fd-find ShellCheck nodejs
+```
+
+**macOS:**
+```
+brew install ripgrep fd shellcheck node
+```
+
+**Any platform:** Rust toolchain (`rustup.rs`) and Go toolchain (`go.dev`) if you work in those languages.
+
+All other tools (LSP servers, formatters, linters) auto-install via Mason on first Neovim launch.
