@@ -25,12 +25,22 @@ vim.api.nvim_create_autocmd("LspAttach", {
         -- textDocument/switchSourceHeader (clangd, ccls).
         vim.keymap.set("n", "<leader>h", function()
             local params = vim.lsp.util.make_text_document_params()
-            for _, c in ipairs(vim.lsp.get_active_clients({ bufnr = 0 })) do
+            for _, c in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
                 if c.supports_method("textDocument/switchSourceHeader") then
                     c.request("textDocument/switchSourceHeader", params,
                         function(err, result)
                             if err or not result then return end
-                            vim.lsp.util.jump_to_location(result, c.offset_encoding)
+                            local uri = result.uri or result.targetUri
+                            local bufnr = vim.uri_to_bufnr(uri)
+                            if not vim.api.nvim_buf_is_loaded(bufnr) then
+                                vim.fn.bufload(bufnr)
+                            end
+                            vim.api.nvim_set_current_buf(bufnr)
+                            local range = result.range
+                            vim.api.nvim_win_set_cursor(0, {
+                                range.start.line + 1,
+                                range.start.character,
+                            })
                         end)
                     return
                 end
