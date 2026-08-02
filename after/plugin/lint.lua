@@ -25,8 +25,8 @@ lint.linters_by_ft = {
     yaml = { "yamllint" },
 }
 
--- Lint on write, insert leave, and text change (debounced internally)
-vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave", "TextChanged" }, {
+-- Lint on write and insert leave (debounced internally; no TextChanged to avoid noise)
+vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave" }, {
     group = vim.api.nvim_create_augroup("LintOnChange", { clear = true }),
     callback = function()
         lint.try_lint()

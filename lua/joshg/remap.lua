@@ -32,7 +32,9 @@ vim.keymap.set("n", "<leader>dl", vim.diagnostic.setloclist, { desc = "Diagnosti
 -- ── Toggles ───────────────────────────────────────────────────────
 vim.keymap.set("n", "<leader>tw", "<cmd>set wrap!<CR>", { desc = "Toggle line wrap" })
 vim.keymap.set("n", "<leader>tn", "<cmd>set number! relativenumber!<CR>", { desc = "Toggle line numbers" })
-vim.keymap.set("n", "<leader>tc", "<cmd>set colorcolumn=80<CR>", { desc = "Toggle colorcolumn" })
+vim.keymap.set("n", "<leader>tc", function()
+    vim.wo.colorcolumn = vim.wo.colorcolumn == "" and "80" or ""
+end, { desc = "Toggle colorcolumn" })
 
 -- ── Misc ──────────────────────────────────────────────────────────
 vim.keymap.set("n", "<leader>w", "<cmd>w<CR>", { desc = "Save file" })
