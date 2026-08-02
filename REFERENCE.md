@@ -183,9 +183,31 @@ Shows indentation guides and highlights the current scope. No keymaps — visual
 
 Auto-highlights hex color codes as their actual color, and calls out `TODO:`, `FIXME:`, `HACK:`, `NOTE:`, `XXX:` in standout colors.
 
-### vim-sneak (Motion)
+### flash.nvim (Motion)
 
-Two-character jump. Type `s` + two chars to jump forward, `S` for backward. Repeat with `;` / `,`.
+Label-based jumping — replaces vim-sneak. Press `s` to jump, labels appear on matches.
+
+| Key | Action |
+|---|---|
+| `s` | Jump to any visible word (normal/visual/operator) |
+| `S` | Jump to treesitter node |
+| `r` | Remote jump (operator-pending) |
+| `R` | Treesitter search (operator-pending/visual) |
+
+Also enhances `/` search and `f`/`t` with labels automatically.
+
+### Perforce (perfnvim)
+
+| Key | Action |
+|---|---|
+| `<leader>pa` | `p4 add` — add current buffer |
+| `<leader>pe` | `p4 edit` — checkout current buffer |
+| `<leader>po` | `p4 opened` — list checked-out files (telescope) |
+| `<leader>pg` | Grep checked-out files (telescope) |
+| `<leader>pn` | Jump to next changed line |
+| `<leader>pp` | Jump to previous changed line |
+
+Also shows **signs** in the gutter for changed lines (like gitsigns).
 
 ### Toggles & Misc
 
