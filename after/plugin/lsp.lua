@@ -30,17 +30,23 @@ vim.api.nvim_create_autocmd("LspAttach", {
                     c.request("textDocument/switchSourceHeader", params,
                         function(err, result)
                             if err or not result then return end
-                            local uri = result.uri or result.targetUri
+                            -- clangd returns a plain URI string, not a Location
+                            local uri = type(result) == "string" and result
+                                or result.uri or result.targetUri
+                            if not uri then return end
                             local bufnr = vim.uri_to_bufnr(uri)
                             if not vim.api.nvim_buf_is_loaded(bufnr) then
                                 vim.fn.bufload(bufnr)
                             end
                             vim.api.nvim_set_current_buf(bufnr)
-                            local range = result.range
-                            vim.api.nvim_win_set_cursor(0, {
-                                range.start.line + 1,
-                                range.start.character,
-                            })
+                            -- If we got a Location with a range, jump to it
+                            local range = type(result) == "table" and result.range
+                            if range then
+                                vim.api.nvim_win_set_cursor(0, {
+                                    range.start.line + 1,
+                                    range.start.character,
+                                })
+                            end
                         end)
                     return
                 end
