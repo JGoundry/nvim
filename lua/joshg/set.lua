@@ -10,36 +10,40 @@ vim.opt.smartindent = true
 
 vim.opt.wrap = false
 
-vim.opt.swapfile = false
-vim.opt.backup = false
+-- Crash recovery
+vim.opt.swapfile = true
+vim.opt.backup = true
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undofile = true
 
+-- Search
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
 
+-- Display
 vim.opt.termguicolors = true
-
 vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
-vim.opt.isfname:append("@-@")
-
-vim.opt.updatetime = 50
-
 vim.opt.colorcolumn = "80"
-
 vim.opt.splitright = true
 
+-- Mouse — enables clicking, dragging, scrolling in all modes (n/v/i/c)
+vim.opt.mouse = "a"
+
+-- Faster response for CursorHold (used by which-key, gitsigns, etc.)
+vim.opt.updatetime = 300
+vim.opt.isfname:append("@-@")
+
+-- LSP diagnostic display
 vim.diagnostic.config({
     signs = true,
     severity_sort = true,
-    virtual_text = true, -- This shows the short version on the line
+    virtual_text = true,
     float = {
         border = "rounded",
-        wrap = true,      -- This fixes the "off-screen" issue
-        max_width = 80,   -- Keeps it readable on large monitors
+        wrap = true,
+        max_width = 80,
     },
 })
