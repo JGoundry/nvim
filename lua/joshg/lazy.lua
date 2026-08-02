@@ -201,7 +201,7 @@ require("lazy").setup({
 
         -- Perforce ─────────────────────────────────────────────────
         {
-            "guillemaru/perfnvim",
+            "JGoundry/perfnvim",
             cmd = { "P4add", "P4edit", "P4opened", "P4grep", "P4next", "P4prev" },
             keys = {
                 { "<leader>pa", function() require("perfnvim").P4add() end, desc = "P4 add current buffer" },
