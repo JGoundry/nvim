@@ -4,6 +4,23 @@ Leader key: `<Space>`
 
 ---
 
+## Opening Files
+
+You have **4 ways** to open files, depending on context:
+
+| Method | Key | When to use |
+|---|---|---|
+| **Fuzzy find** | `<leader>ff` | Jump to any file in the project by name |
+| **Grep** | `<leader>fg` | Search file contents, then open the match |
+| **File explorer** | `<leader>mf` | Browse the directory tree interactively |
+| **Netrw (classic)** | `<leader>pv` | Traditional Vim file browser |
+
+Inside **mini.files** (`<leader>mf`): press `l` to open a file or expand a directory, `h` to go up. Enter does nothing — use `l` instead.
+
+Inside **netrw** (`<leader>pv`): press Enter to open.
+
+---
+
 ## Plugins & Keybindings
 
 ### Navigation
