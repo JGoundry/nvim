@@ -20,13 +20,24 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.keymap.set({ "n", "x" }, "<F3>", "<cmd>lua vim.lsp.buf.format({async = true})<cr>", opts)
         vim.keymap.set("n", "<F4>", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
 
-        -- clangd: switch source/header (guarded by client check)
-        if client and client.name == "clangd" then
-            vim.keymap.set("n", "<leader>h", "<cmd>ClangdSwitchSourceHeader<cr>", {
-                buffer = event.buf,
-                desc = "Switch Source/Header",
-            })
-        end
+        -- Source/header switching — uses clangd's custom method or falls
+        -- back to LSP definition. Works for any server that implements
+        -- textDocument/switchSourceHeader (clangd, ccls).
+        vim.keymap.set("n", "<leader>h", function()
+            local params = vim.lsp.util.make_text_document_params()
+            for _, c in ipairs(vim.lsp.get_active_clients({ bufnr = 0 })) do
+                if c.supports_method("textDocument/switchSourceHeader") then
+                    c.request("textDocument/switchSourceHeader", params,
+                        function(err, result)
+                            if err or not result then return end
+                            vim.lsp.util.jump_to_location(result, c.offset_encoding)
+                        end)
+                    return
+                end
+            end
+            -- Fallback: try LSP definition (often works for cpp→h)
+            vim.lsp.buf.definition()
+        end, { buffer = event.buf, desc = "Switch source/header" })
     end,
 })
 
