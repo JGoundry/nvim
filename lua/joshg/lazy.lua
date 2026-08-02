@@ -172,13 +172,40 @@ require("lazy").setup({
             opts = {},
         },
 
-        -- Motions
-        -- Currently using vim-sneak. To try the modern alternative:
-        --   { "folke/flash.nvim", event = "VeryLazy", opts = {} }
-        -- flash.nvim: label-based jumping integrated with search / f t / LSP /
-        --   treesitter. One plugin replaces sneak + enhances built-in motions.
-        --   https://github.com/folke/flash.nvim
-        { "justinmk/vim-sneak" },
+        -- Motions ────────────────────────────────────────────────────
+        {
+            "folke/flash.nvim",
+            event = "VeryLazy",
+            opts = {
+                modes = {
+                    search = { enabled = true },
+                    char = { enabled = true },
+                },
+            },
+            keys = {
+                { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash jump" },
+                { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash treesitter" },
+                { "r", mode = "o", function() require("flash").remote() end, desc = "Flash remote" },
+                { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Flash treesitter search" },
+            },
+        },
+
+        -- Perforce ─────────────────────────────────────────────────
+        {
+            "guillemaru/perfnvim",
+            cmd = { "P4add", "P4edit", "P4opened", "P4grep", "P4next", "P4prev" },
+            keys = {
+                { "<leader>pa", function() require("perfnvim").P4add() end, desc = "P4 add current buffer" },
+                { "<leader>pe", function() require("perfnvim").P4edit() end, desc = "P4 edit current buffer" },
+                { "<leader>po", function() require("perfnvim").P4opened() end, desc = "P4 opened (telescope)" },
+                { "<leader>pg", function() require("perfnvim").P4grep() end, desc = "Grep checked-out files" },
+                { "<leader>pn", function() require("perfnvim").P4next() end, desc = "Next changed line" },
+                { "<leader>pp", function() require("perfnvim").P4prev() end, desc = "Previous changed line" },
+            },
+            config = function()
+                require("perfnvim").setup()
+            end,
+        },
 
         -- Linting ────────────────────────────────────────────────────
         {
