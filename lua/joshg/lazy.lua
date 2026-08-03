@@ -205,7 +205,7 @@ require("lazy").setup({
             cmd = { "P4add", "P4edit", "P4opened", "P4grep", "P4next", "P4prev",
                     "P4revert", "P4revertunchanged", "P4delete", "P4submit",
                     "P4diff", "P4describe", "P4sync", "P4annotate",
-                    "P4shelve", "P4unshelve", "P4login" },
+                    "P4shelve", "P4unshelve", "P4login", "P4health", "P4info" },
             keys = {
                 { "<leader>pa", function() require("perfnvim").P4add() end, desc = "P4 add" },
                 { "<leader>pe", function() require("perfnvim").P4edit() end, desc = "P4 edit" },
@@ -220,6 +220,7 @@ require("lazy").setup({
                 { "<leader>ph", function() require("perfnvim").P4shelve() end, desc = "P4 shelve" },
                 { "<leader>pH", function() require("perfnvim").P4unshelve() end, desc = "P4 unshelve" },
                 { "<leader>pl", function() require("perfnvim").P4login() end, desc = "P4 login" },
+                { "<leader>pi", function() require("perfnvim").P4info() end, desc = "P4 info" },
                 { "<leader>po", function() require("perfnvim").P4opened() end, desc = "P4 opened (telescope)" },
                 { "<leader>pg", function() require("perfnvim").P4grep() end, desc = "Grep checked-out files" },
                 { "<leader>pn", function() require("perfnvim").P4next() end, desc = "Next changed line" },
