@@ -233,6 +233,7 @@ Also shows **signs** in the gutter for changed lines (like gitsigns).
 | `<leader>tw` | Toggle line wrap |
 | `<leader>tn` | Toggle line numbers |
 | `<leader>tc` | Toggle 80-char column |
+| `<leader>tl` | Toggle cursorline |
 | `<leader>w` | Save file |
 | `Alt+j` / `Alt+k` | Next / previous quickfix item |
 
