@@ -28,9 +28,13 @@ vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
 vim.opt.colorcolumn = "80"
 vim.opt.splitright = true
+vim.opt.showmode = false  -- statusline shows mode, built-in is redundant
 
 -- Mouse — enables clicking, dragging, scrolling in all modes (n/v/i/c)
 vim.opt.mouse = "a"
+
+-- System clipboard (requires +clipboard and xclip/wl-clipboard)
+vim.opt.clipboard = "unnamedplus"
 
 -- Faster response for CursorHold (used by which-key, gitsigns, etc.)
 vim.opt.updatetime = 300

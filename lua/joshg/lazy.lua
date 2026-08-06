@@ -28,7 +28,21 @@ require("lazy").setup({
         },
 
         -- Syntax ────────────────────────────────────────────────────
-        { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+        --
+        -- PINNED to the archived "master" branch for Neovim 0.11
+        -- compatibility. The "main" branch requires a different API
+        -- (module renamed to require("nvim-treesitter"), explicit
+        -- FileType autocmds for vim.treesitter.start() + indentexpr,
+        -- and tree-sitter CLI on PATH).
+        --
+        -- This config is an 0.11 config. On 0.12+ treesitter is
+        -- built-in — remove this plugin entirely and delete
+        -- after/plugin/treesitter.lua. See REFERENCE.md § "Migration".
+        {
+            "nvim-treesitter/nvim-treesitter",
+            branch = "master",
+            build = ":TSUpdate",
+        },
 
         -- Colorschemes ──────────────────────────────────────────────
         { "rose-pine/neovim", name = "rose-pine" },
@@ -70,7 +84,12 @@ require("lazy").setup({
         { "echasnovski/mini.surround", version = "*", config = true },
 
         -- Undo Tree ─────────────────────────────────────────────────
-        { "mbbill/undotree" },
+        {
+            "mbbill/undotree",
+            keys = {
+                { "<leader>u", "<cmd>UndotreeToggle<CR>", desc = "Toggle undo tree" },
+            },
+        },
 
         -- LSP ───────────────────────────────────────────────────────
         { "neovim/nvim-lspconfig" },

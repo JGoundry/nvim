@@ -26,8 +26,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.keymap.set("n", "<leader>h", function()
             local params = vim.lsp.util.make_text_document_params()
             for _, c in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
-                if c.supports_method("textDocument/switchSourceHeader") then
-                    c.request("textDocument/switchSourceHeader", params,
+                if c:supports_method("textDocument/switchSourceHeader") then
+                    c:request("textDocument/switchSourceHeader", params,
                         function(err, result)
                             if err or not result then return end
                             -- clangd returns a plain URI string, not a Location

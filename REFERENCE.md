@@ -107,7 +107,7 @@ Linters configured:
 | Markdown | markdownlint | `:MasonInstall markdownlint` |
 | YAML | yamllint | `:MasonInstall yamllint` |
 
-Linting runs automatically on save, insert leave, and text change.
+Linting runs automatically on save and insert leave.
 
 | Key | Action |
 |---|---|
@@ -252,7 +252,7 @@ Also shows **signs** in the gutter for changed lines (like gitsigns).
 
 | Module | What it does | Why you might want it |
 |---|---|---|
-| **mini.notify** | Non-blocking notification UI | Replaces `vim.notify` with structured, history-browsable popups. Complements which-key well. |
+| **mini.notify** | Non-blocking notification UI | ✅ Installed — replaces `vim.notify` with structured, history-browsable popups. |
 | **mini.diff** | Diff hunks and navigation | Lightweight alternative to gitsigns if you want even smaller footprint. Currently redundant since you have gitsigns. |
 | **mini.pick** | Fuzzy picker | Built-in picker that could replace telescope. Smaller, no dependencies, but fewer features. |
 | **mini.starter** | Start screen | Shows recent files, bookmarks, session restore on Neovim launch. |
@@ -270,7 +270,7 @@ Also shows **signs** in the gutter for changed lines (like gitsigns).
 
 | Plugin | What it does |
 |---|---|
-| **flash.nvim** | ✅ **Now installed** — label-based jumping replacing vim-sneak. |
+| **flash.nvim** | Label-based jumping replacing vim-sneak. See § flash.nvim above for keymaps. |
 
 ### Other notable plugins
 
@@ -302,3 +302,29 @@ brew install ripgrep fd shellcheck node
 **Any platform:** Rust toolchain (`rustup.rs`) and Go toolchain (`go.dev`) if you work in those languages.
 
 All other tools (LSP servers, formatters, linters) auto-install via Mason on first Neovim launch.
+
+---
+
+## 0.11 → 0.12 Migration
+
+This config is a **Neovim 0.11 config**. It does not attempt to auto-detect or
+support 0.12+. When upgrading:
+
+### Treesitter (built-in)
+Neovim 0.12 ships treesitter natively. Remove the `nvim-treesitter` plugin spec
+from `lazy.lua` and delete `after/plugin/treesitter.lua`. Highlighting is on by
+default; indentation needs `vim.bo.indentexpr = "v:lua.vim.treesitter.indentexpr()"`
+in a `FileType` autocmd.
+
+### Deprecated APIs
+These are already fixed in this config:
+- `vim.diagnostic.goto_next/prev` → `vim.diagnostic.jump()` ✅
+- `c.request()` / `c.supports_method()` → `c:request()` / `c:supports_method()` ✅
+
+These still need updating on 0.12+:
+- `{ buffer = ... }` → `{ buf = ... }` in keymap opts (`after/plugin/lsp.lua`)
+- `vim.hl.on_yank()` → `vim.hl.hl_op()` (`after/plugin/colors.lua` — `hl_op` doesn't exist on 0.11)
+
+### Lazy-loading
+With treesitter built-in, startup time drops. Consider removing `event = "VeryLazy"`
+from lightweight plugins (mini.*) — the guards become unnecessary overhead.
