@@ -191,13 +191,7 @@ require("lazy").setup({
         {
             "folke/which-key.nvim",
             event = "VeryLazy",
-            opts = {
-                triggers = {
-                    -- Auto-discover prefixes from your keymaps (like <leader>)
-                    -- Exclude <C-w> so built-in window commands work normally
-                    { "<auto>", mode = "nxso" },
-                },
-            },
+            opts = {}
         },
 
         -- Motions ────────────────────────────────────────────────────
