@@ -40,3 +40,5 @@ vim.keymap.set("n", "<leader>tl", "<cmd>set cursorline!<CR>", { desc = "Toggle c
 -- ── Misc ──────────────────────────────────────────────────────────
 vim.keymap.set("n", "<leader>w", "<cmd>w<CR>", { desc = "Save file" })
 vim.keymap.set("n", "<leader>ll", function() require("lint").try_lint() end, { desc = "Trigger linting" })
+vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true, desc = "Move selection up" })
+vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true, desc = "Move selection down" })
