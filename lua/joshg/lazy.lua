@@ -59,7 +59,12 @@ require("lazy").setup({
             "echasnovski/mini.files",
             version = "*",
             keys = {
-                { "<leader>mf", function() require("mini.files").open() end, desc = "Open file explorer" },
+                { "<leader>mF", function() require("mini.files").open() end, desc = "Open file explorer" },
+                { "<leader>mf", function()
+                    local files = require("mini.files")
+                    files.open(vim.fn.expand("%:p"))
+                    files.reveal_cwd()
+                end, desc = "Open file explorer at current buffer" },
             },
             config = true,
         },
