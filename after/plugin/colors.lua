@@ -1,4 +1,4 @@
-function colorEverything(color)
+function color_everything(color)
     color = color or "tokyonight-night"
     vim.cmd.colorscheme(color)
 
@@ -9,7 +9,7 @@ function colorEverything(color)
     vim.api.nvim_set_hl(0, "Pmenu", { bg = "none" })
 end
 
-colorEverything()
+color_everything()
 
 -- Native highlight-on-yank (replaces vim-highlightedyank)
 vim.api.nvim_create_autocmd("TextYankPost", {
