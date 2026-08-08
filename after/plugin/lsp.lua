@@ -6,7 +6,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     desc = "LSP Actions",
     callback = function(event)
         local opts = { buffer = event.buf }
-        local client = vim.lsp.get_client_by_id(event.data.client_id)
 
         -- Navigation
         vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", opts)
@@ -69,35 +68,35 @@ vim.lsp.config("lua_ls", {
                 checkThirdParty = false,
             },
             runtime = { version = "LuaJIT" },
-            -- Stricter formatting for Lua (like gofumpt for go)
-            format = { enable = false }, -- let conform.nvim (stylua) handle it
+            format = { enable = false },
         },
     },
 })
+vim.lsp.enable({ "lua_ls" })
 
----
--- Mason: auto-install LSP servers, formatters, and linters
+--- Mason: auto-install LSP servers, formatters, and linters.
 -- NOTE: Neovim 0.11+ with blink.cmp auto-merges LSP capabilities.
 -- No need to pass capabilities manually.
+-- mason-lspconfig v2.0+ uses automatic_enable = true (default),
+-- so vim.lsp.enable() is called automatically for every Mason-installed
+-- server. Pre-configure servers (like lua_ls above) before this setup
+-- so their custom config takes effect.
 --
 -- System requirements (not installable via Mason):
---   dnf install ripgrep fd-find ShellCheck  (ripgrep + fd for telescope, shellcheck for bash linting)
+--   dnf install ripgrep fd-find ShellCheck
 --   Node.js (for prettierd, vtsls, cssls, html, jsonls)
 --   Rust toolchain (rustup) for rustfmt and rust-analyzer
 --   Go toolchain for gofumpt, goimports, gopls
 ---
 require("mason").setup({
     ensure_installed = {
-        -- Formatters (for conform.nvim)
         "stylua",
         "gofumpt",
         "goimports",
         "prettierd",
         "clang_format",
-        "ruff", -- also used by nvim-lint for Python
+        "ruff",
         "rustfmt",
-
-        -- Linters (for nvim-lint)
         "selene",
         "hadolint",
         "markdownlint",
@@ -116,12 +115,6 @@ require("mason-lspconfig").setup({
         "cssls",
         "docker_language_server",
         "jsonls",
-        "basedpyright", -- Python (strictest type checker, best-in-class)
-    },
-    handlers = {
-        function(server)
-            vim.lsp.config(server, {})
-            vim.lsp.enable({ server })
-        end,
+        "basedpyright",
     },
 })
