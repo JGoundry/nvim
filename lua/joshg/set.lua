@@ -12,9 +12,12 @@ vim.opt.wrap = false
 
 -- Crash recovery
 vim.opt.swapfile = true
+vim.opt.directory = vim.fn.stdpath("state") .. "/swap//"
 vim.opt.backup = true
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+vim.opt.writebackup = true
+vim.opt.backupdir = vim.fn.stdpath("state") .. "/backup//"
 vim.opt.undofile = true
+vim.opt.undodir = vim.fn.stdpath("state") .. "/undo//"
 
 -- Search
 vim.opt.ignorecase = true
